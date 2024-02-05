@@ -6,6 +6,7 @@ use App\Repository\PricingPlanRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
 
 #[ORM\Entity(repositoryClass: PricingPlanRepository::class)]
 class PricingPlan
@@ -27,7 +28,7 @@ class PricingPlan
     #[ORM\ManyToMany(targetEntity: PricingPlanFeature::class)]
     private Collection $features;
 
-    public function __construct()
+    #[Pure] public function __construct()
     {
         $this->benefits = new ArrayCollection();
         $this->features = new ArrayCollection();
@@ -114,5 +115,12 @@ class PricingPlan
         $this->features->removeElement($feature);
 
         return $this;
+    }
+
+    // metodo aggiunto da me per sapere se un piano ha una determinata feature
+    // restituisce un booleano
+    public function hasFeature(PricingPlanFeature $feature): bool
+    {
+        return $this->features->contains($feature);
     }
 }
