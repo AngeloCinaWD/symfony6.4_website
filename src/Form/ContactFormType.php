@@ -28,16 +28,23 @@ class ContactFormType extends AbstractType
             ->add('subject', TextType::class, $formTypeOptions)
             ->add('message', TextareaType::class, $formTypeOptions)
             ->add('button', ButtonType::class, [
-                'attr' => ['class' => 'btn btn-secondary', 'data-bs-dismiss'=>'modal'],
-                'label' => 'Close',
-                'row_attr' => ['class' => 'w-25 d-inline-block']
-            ])
-            ->add('submit', SubmitType::class,  [
-                'attr' => ['class' => 'btn btn-primary'],
+                    'attr' => ['data-bs-dismiss' => 'modal'],
+                    'row_attr' => ['class' => 'w-25 d-inline-block'],
+                    'label' => 'Close',
+                ]
+//                queste classi le avevo passate a mano
+//                posso utilizzare il form_theme di bootstrap settandolo nel file twig.yaml
+//                [
+//                'attr' => ['class' => 'btn btn-secondary', 'data-bs-dismiss'=>'modal'],
+//                'label' => 'Close',
+//                'row_attr' => ['class' => 'w-25 d-inline-block']
+//            ]
+            )
+            ->add('submit', SubmitType::class, [
+//                'attr' => ['class' => 'btn btn-primary'],
                 'label' => 'Send message',
-                'row_attr' => ['class' => 'w-50 d-inline-block']
-            ])
-        ;
+                'row_attr' => ['class' => 'w-50 d-inline-block'],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

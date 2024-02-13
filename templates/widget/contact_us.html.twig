@@ -6,7 +6,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                {{ form_start(form, {action: path('contact_us')}) }}
+{#                {{ form_widget(form) }}#}
+{#                {{ form_start(form) }}#}
                 {{ form(form) }}
+                {{ form_end(form) }}
                 {#<form>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Name:</label>
@@ -35,3 +39,5 @@
         </div>
     </div>
 </div>
+
+<script src="{{ asset('js/contact-form.js') }}"></script>
