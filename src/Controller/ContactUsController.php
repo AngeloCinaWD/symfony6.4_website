@@ -21,17 +21,22 @@ class ContactUsController extends AbstractController
 
         $form->handleRequest($request);
 
+        $successMessage = null;
+
         if ($form->isSubmitted() && $form->isValid()) {
             /**
              * @var ContactForm $contactForm
              */
             $contactForm = $form->getData();
 
-            // TODO: sent email
+            // TODO: send email
+
+            $successMessage = 'Message was succesfully sent!';
         }
 
         return $this->renderForm('widget/contact_us.html.twig', [
-            'form' => $form
+            'form' => $form,
+            'successMessage' => $successMessage
         ]);
 
 //        return $this->render('widget/contact_us.html.twig', [

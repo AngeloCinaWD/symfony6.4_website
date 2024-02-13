@@ -5,28 +5,61 @@ namespace App\Form;
 use App\ValueObject\ContactForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ContactFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $formTypeOptions = [
-            'row_attr' => ['class' => 'mb-3'],
-            'label_attr' => ['class' => 'col-form-label'],
-            'attr' => ['class' => 'form-control']
-        ];
+//        $formTypeOptions = [
+//            'required' => false,
+//            'row_attr' => ['class' => 'mb-3'],
+////            'label_attr' => ['class' => 'col-form-label'],
+////            'attr' => ['class' => 'form-control']
+//            'constraints' => [new NotBlank(['message' => 'ciao'])]
+//        ];
 
         $builder
-            ->add('name', TextType::class, $formTypeOptions)
-            ->add('email', TextType::class, $formTypeOptions)
-            ->add('subject', TextType::class, $formTypeOptions)
-            ->add('message', TextareaType::class, $formTypeOptions)
+            ->add('name', TextType::class, [
+                'required' => false,
+                'row_attr' => ['class' => 'mb-3'],
+//            'label_attr' => ['class' => 'col-form-label'],
+//            'attr' => ['class' => 'form-control']
+                'constraints' => [new NotBlank(['message' => 'Name is mandatory'])]
+            ])
+            // se utilizzo EmailType non mi vede i constraints
+            // i constraints o li definisco qui nel formtype o nella classe come attributo
+            //  es. #[Assert\Email()]
+            // https://symfony.com/doc/6.4/validation.html#installation
+            ->add('email', TextType::class, [
+                'required' => false,
+                'row_attr' => ['class' => 'mb-3'],
+//            'label_attr' => ['class' => 'col-form-label'],
+//            'attr' => ['class' => 'form-control']
+                'constraints' => [new NotBlank(['message' => 'Email is mandatory']), new Email()]
+            ])
+            ->add('subject', TextType::class, [
+                'required' => false,
+                'row_attr' => ['class' => 'mb-3'],
+//            'label_attr' => ['class' => 'col-form-label'],
+//            'attr' => ['class' => 'form-control']
+                'constraints' => [new NotBlank(['message' => 'Subject is mandatory'])]
+            ])
+            ->add('message', TextareaType::class, [
+                'required' => false,
+                'row_attr' => ['class' => 'mb-3'],
+//            'label_attr' => ['class' => 'col-form-label'],
+//            'attr' => ['class' => 'form-control']
+                'constraints' => [new NotBlank(['message' => 'Message is mandatory'])]
+            ])
             ->add('button', ButtonType::class, [
                     'attr' => ['data-bs-dismiss' => 'modal'],
                     'row_attr' => ['class' => 'w-25 d-inline-block'],

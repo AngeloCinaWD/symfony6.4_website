@@ -5,6 +5,7 @@ window.addEventListener('load', () => {
 function initOnFormSubmit() {
     const form = document.querySelector('#contactUsModal form');
 
+
     form.addEventListener('submit', (event) => {
         event.preventDefault();
 
@@ -17,6 +18,11 @@ function sendData(form) {
     const formData = new FormData(form);
 
     xhr.addEventListener('load', () => {
+
+        // if (xhr.status < 400) {
+        //     return;
+        // }
+
         const newHtml = xhr.response;
         const divElement = document.createElement('div');
         divElement.innerHTML = newHtml;
@@ -29,7 +35,7 @@ function sendData(form) {
             document.querySelector('#contactUsModal .modal-body').innerHTML = 'Error occurred. Please try again later';
         }
 
-        initOnFormSubmit();
+        initOnFormSubmit(form);
     })
 
     xhr.addEventListener('error', () => {
@@ -39,3 +45,8 @@ function sendData(form) {
     xhr.open('POST', form.getAttribute('action'));
     xhr.send(formData);
 }
+
+const myModalEl = document.getElementById('contactUsModal');
+myModalEl.addEventListener('hide.bs.modal', event => {
+   location.reload();
+})
